@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Conversor de monedas</string>
+    <string name="converter">Conversor de monedas</string>
+    <string name="start_coin">Moneda inicial</string>
+    <string name="amount">Cantidad</string>
+    <string name="converter_to">Convertir a</string>
+    <string name="converter_button">Convertir</string>
+    <string name="msg_number">Ingrese el número</string>
+    <string name="info">Resultado: %s\n </string>
+    <string name="msg_wrong">Operación no válida</string>
+    <string-array name="money_list">
+        <item>Dólar Estadounidense</item>
+        <item>Peso Colombiano</item>
+        <item>Peso Mexicano</item>
+    </string-array>
+</resources>
