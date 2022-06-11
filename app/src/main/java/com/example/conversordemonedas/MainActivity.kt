@@ -15,7 +15,7 @@ class MainActivity : Activity() {
     private val pesoMexPesoCo: Double = 193.47
     private val pesoMexDolar: Double = 0.051
     private var result: Double = 0.0
-
+    private var num: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,48 +27,55 @@ class MainActivity : Activity() {
 
             converterButton.setOnClickListener{
 
-                if(initialMountEditTextNumber3.getText().toString().isEmpty())
-                    Toast.makeText(this@MainActivity, getString(R.string.msg_number), Toast.LENGTH_SHORT).show()
-
-                val num = (initialMountEditTextNumber3.getText().toString()).toInt()
-
-                val input_money_type = startCoinSpinner.selectedItem.toString()
-                val final_money_type = finalCoinSpinner2.selectedItem.toString()
-
-                if(input_money_type=="Dólar Estadounidense") {
-                    if (final_money_type == "Peso Colombiano") result = num * dolarPesoCo
-                    else if (final_money_type == "Peso Mexicano")result = num * dolarPesoMex
-                    else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            getString(R.string.msg_wrong),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        result = num.toDouble()
-                    }
+                if(initialMountEditTextNumber3.text.toString().isEmpty()) {
+                    num = 0
+                    result = 0.0
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.msg_number),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                else if(input_money_type=="Peso Colombiano") {
-                    if (final_money_type == "Dólar Estadounidense") result = num * pesoCoDolar
-                    else if (final_money_type == "Peso Mexicano") result = num * pesoCoMex
-                    else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            getString(R.string.msg_wrong),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        result = num.toDouble()
-                    }
-                }
-                else if(input_money_type=="Peso Mexicano") {
-                    if (final_money_type == "Peso Colombiano") result = num * pesoMexPesoCo
-                    else if (final_money_type == "Dólar Estadounidense") result = num * pesoMexDolar
-                    else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            getString(R.string.msg_wrong),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        result = num.toDouble()
+                else {
+                    num = (initialMountEditTextNumber3.text.toString()).toInt()
+
+                    val input_money_type = startCoinSpinner.selectedItem.toString()
+                    val final_money_type = finalCoinSpinner2.selectedItem.toString()
+
+                    if (input_money_type == "Dólar Estadounidense") {
+                        if (final_money_type == "Peso Colombiano") result = num * dolarPesoCo
+                        else if (final_money_type == "Peso Mexicano") result = num * dolarPesoMex
+                        else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.msg_wrong),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            result = num.toDouble()
+                        }
+                    } else if (input_money_type == "Peso Colombiano") {
+                        if (final_money_type == "Dólar Estadounidense") result = num * pesoCoDolar
+                        else if (final_money_type == "Peso Mexicano") result = num * pesoCoMex
+                        else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.msg_wrong),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            result = num.toDouble()
+                        }
+                    } else if (input_money_type == "Peso Mexicano") {
+                        if (final_money_type == "Peso Colombiano") result = num * pesoMexPesoCo
+                        else if (final_money_type == "Dólar Estadounidense") result =
+                            num * pesoMexDolar
+                        else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.msg_wrong),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            result = num.toDouble()
+                        }
                     }
                 }
 
