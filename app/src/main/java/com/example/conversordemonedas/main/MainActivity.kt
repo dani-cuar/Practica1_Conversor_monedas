@@ -1,8 +1,9 @@
-package com.example.conversordemonedas
+package com.example.conversordemonedas.main
 
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.conversordemonedas.R
 import com.example.conversordemonedas.databinding.ActivityMainBinding
 
 class MainActivity : Activity() {
