@@ -43,7 +43,7 @@
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <EditText
-            android:id="@+id/initial_mount_editTextNumber3"
+            android:id="@+id/initial_mount_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/converter_to_textView4"
+        android:id="@+id/converter_to_textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Spinner
-        android:id="@+id/final_coin_spinner2"
+        android:id="@+id/final_coin_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -83,7 +83,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/converter_to_textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/converter_to_textView" />
 
     <Button
         android:id="@+id/converter_button"
@@ -95,10 +95,10 @@
         android:text="@string/converter_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/final_coin_spinner2" />
+        app:layout_constraintTop_toBottomOf="@+id/final_coin_spinner" />
 
     <TextView
-        android:id="@+id/result_textView5"
+        android:id="@+id/result_textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

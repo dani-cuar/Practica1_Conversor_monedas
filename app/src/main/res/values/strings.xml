@@ -5,8 +5,8 @@
     <string name="amount">Cantidad</string>
     <string name="converter_to">Convertir a</string>
     <string name="converter_button">Convertir</string>
-    <string name="msg_number">Ingrese el número</string>
-    <string name="info">Resultado: %s\n </string>
+    <string name="msg_number">Ingrese la cantidad</string>
+    <string name="info"> $%s %s\n </string>
     <string name="msg_wrong">Operación no válida</string>
     <string name="euro">euro</string>
     <string-array name="money_list">

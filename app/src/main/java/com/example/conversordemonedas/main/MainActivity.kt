@@ -1,22 +1,19 @@
 package com.example.conversordemonedas.main
 
-import android.app.Activity
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.conversordemonedas.R
 import com.example.conversordemonedas.databinding.ActivityMainBinding
 
-class MainActivity : Activity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
-    private val dolarPesoCo: Double = 3781.36
-    private val dolarPesoMex: Double = 19.55
-    private val pesoCoDolar: Double = 0.00026
-    private val pesoCoMex: Double = 0.0052
-    private val pesoMexPesoCo: Double = 193.47
-    private val pesoMexDolar: Double = 0.051
-    private var result: Double = 0.0
-    private var num: Int = 0
+    private lateinit var mainViewModel: MainViewModel
+
+    private var validation = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,66 +21,49 @@ class MainActivity : Activity() {
         val view = mainBinding.root
         setContentView(view)
 
-        with(mainBinding){
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-            converterButton.setOnClickListener{
 
-                if(initialMountEditTextNumber3.text.toString().isEmpty()) {
-                    num = 0
-                    result = 0.0
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.msg_number),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else {
-                    num = (initialMountEditTextNumber3.text.toString()).toInt()
-
-                    val input_money_type = startCoinSpinner.selectedItem.toString()
-                    val final_money_type = finalCoinSpinner2.selectedItem.toString()
-
-                    if (input_money_type == "Dólar Estadounidense") {
-                        if (final_money_type == "Peso Colombiano") result = num * dolarPesoCo
-                        else if (final_money_type == "Peso Mexicano") result = num * dolarPesoMex
-                        else {
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.msg_wrong),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            result = num.toDouble()
-                        }
-                    } else if (input_money_type == "Peso Colombiano") {
-                        if (final_money_type == "Dólar Estadounidense") result = num * pesoCoDolar
-                        else if (final_money_type == "Peso Mexicano") result = num * pesoCoMex
-                        else {
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.msg_wrong),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            result = num.toDouble()
-                        }
-                    } else if (input_money_type == "Peso Mexicano") {
-                        if (final_money_type == "Peso Colombiano") result = num * pesoMexPesoCo
-                        else if (final_money_type == "Dólar Estadounidense") result =
-                            num * pesoMexDolar
-                        else {
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.msg_wrong),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            result = num.toDouble()
-                        }
-                    }
-                }
-
-                var salida = result.toString()
-                resultTextView5.text = getString(R.string.info, salida)
-            }
+        mainViewModel.mutableValidateDone.observe(this) { mutableValidate ->
+            validation = mutableValidate
         }
 
+        mainBinding.converterButton.setOnClickListener {
+
+            if (mainBinding.initialMountEditText.text.toString().isEmpty()) {
+                mainViewModel.emptyInput()
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.msg_number),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val quantity = (mainBinding.initialMountEditText.text.toString()).toInt()
+                val inputMoneyType = mainBinding.startCoinSpinner.selectedItem.toString()
+                val finalMoneyType = mainBinding.finalCoinSpinner.selectedItem.toString()
+
+                mainViewModel.convertTo(inputMoneyType, finalMoneyType, quantity)
+
+                mainViewModel.mutableResultDone.observe(this) { mutableResult ->
+                    if (validation)
+                        mainBinding.resultTextView.visibility = TextView.VISIBLE
+                    mainBinding.resultTextView.text = getString(
+                        R.string.info,
+                        mutableResult.toString(),
+                        mainBinding.finalCoinSpinner.selectedItem.toString()
+                    )
+                }
+            }
+            if (!validation){
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.msg_wrong),
+                    Toast.LENGTH_SHORT
+                ).show()
+                mainBinding.resultTextView.visibility = TextView.INVISIBLE
+            }
+
+
+        }
     }
 }
